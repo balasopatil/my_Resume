@@ -5,94 +5,365 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Balaso Patil - PVC & PE Pipes Production Expert</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --gray: #95a5a6;
+            --pvc-blue: #0066cc;
+            --hdpe-orange: #ff6600;
+            --pipe-gray: #5a6a7a;
+            --fitting-yellow: #ffcc00;
+            --white: #ffffff;
+            --light-bg: #f5f7fa;
+            --dark-bg: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.7;
             color: #333;
-            max-width: 1000px;
+            background-color: var(--light-bg);
+            overflow-x: hidden;
+        }
+        
+        /* Animated pipe background */
+        .pipe-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.05;
+            background-image: 
+                radial-gradient(circle at 10% 20%, var(--pvc-blue) 0%, transparent 20%),
+                radial-gradient(circle at 90% 30%, var(--hdpe-orange) 0%, transparent 25%),
+                radial-gradient(circle at 50% 80%, var(--fitting-yellow) 0%, transparent 30%);
+            animation: float 15s ease-in-out infinite alternate;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(-5%, -3%); }
+            100% { transform: translate(5%, 3%); }
+        }
+        
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f9f9f9;
         }
         
         header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--secondary);
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin: 50px auto 30px;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.3s forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .header-decoration {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, var(--pvc-blue), var(--hdpe-orange));
+            clip-path: polygon(0 0, 100% 0, 100% 100%);
+            opacity: 0.8;
+        }
+        
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .profile-photo-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            flex-shrink: 0;
+        }
+        
+        .profile-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid var(--white);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .photo-frame {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px dashed var(--pvc-blue);
+            top: -10px;
+            left: -10px;
+            animation: rotate 20s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .profile-text {
+            flex: 1;
+            min-width: 300px;
         }
         
         h1 {
-            color: var(--primary);
-            margin-bottom: 5px;
-            font-size: 2.5em;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-bg);
+            margin-bottom: 10px;
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--pvc-blue), var(--hdpe-orange));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .title {
+            font-size: 1.3rem;
+            color: var(--pipe-gray);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .title:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--pvc-blue), var(--hdpe-orange));
+            bottom: -5px;
+            left: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: expandLine 1s 0.8s forwards;
+        }
+        
+        @keyframes expandLine {
+            to { transform: scaleX(1); }
         }
         
         .contact-info {
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
             gap: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 25px;
         }
         
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            padding: 10px 15px;
+            background-color: rgba(0,102,204,0.1);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            transform: translateX(-20px);
+            opacity: 0;
+            animation: fadeInRight 0.5s forwards;
         }
         
-        .section {
-            margin-bottom: 30px;
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        .contact-item:nth-child(1) { animation-delay: 1s; }
+        .contact-item:nth-child(2) { animation-delay: 1.1s; }
+        
+        @keyframes fadeInRight {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
+        
+        .contact-item:hover {
+            background-color: var(--pvc-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,102,204,0.3);
+        }
+        
+        .contact-item:hover i,
+        .contact-item:hover a,
+        .contact-item:hover span {
+            color: white;
+        }
+        
+        .contact-item i {
+            color: var(--pvc-blue);
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        
+        a {
+            color: var(--pvc-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 25px;
+            background: linear-gradient(to right, var(--pvc-blue), var(--hdpe-orange));
+            color: white;
+            border-radius: 30px;
+            margin-top: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,102,204,0.3);
+            transform: scale(0.95);
+            opacity: 0;
+            animation: popIn 0.5s 1.2s forwards;
+        }
+        
+        @keyframes popIn {
+            0% { transform: scale(0.95); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,102,204,0.4);
+        }
+        
+        .download-btn i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        
+        section {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            padding: 40px;
+            margin-bottom: 30px;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.8s forwards;
+        }
+        
+        section:nth-child(1) { animation-delay: 0.4s; }
+        section:nth-child(2) { animation-delay: 0.5s; }
+        section:nth-child(3) { animation-delay: 0.6s; }
+        section:nth-child(4) { animation-delay: 0.7s; }
         
         h2 {
-            color: var(--primary);
-            border-bottom: 2px solid var(--secondary);
-            padding-bottom: 5px;
-            margin-top: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-bg);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        h2:after {
+            content: "";
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, var(--pvc-blue), var(--hdpe-orange));
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
         }
         
         h3 {
-            color: var(--dark);
-            margin-bottom: 5px;
+            color: var(--pipe-gray);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
         }
         
         .job {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid rgba(0,102,204,0.2);
+            transition: all 0.3s;
+        }
+        
+        .job:hover {
+            border-left-color: var(--pvc-blue);
+        }
+        
+        .job:before {
+            content: "";
+            position: absolute;
+            left: -8px;
+            top: 5px;
+            height: 14px;
+            width: 14px;
+            border-radius: 50%;
+            background-color: var(--white);
+            border: 3px solid var(--pvc-blue);
+            box-shadow: 0 0 0 3px rgba(0,102,204,0.1);
+            transition: all 0.3s;
+        }
+        
+        .job:hover:before {
+            transform: scale(1.2);
+            background-color: var(--hdpe-orange);
+            border-color: var(--white);
         }
         
         .job-header {
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
+            flex-wrap: wrap;
         }
         
         .company {
-            font-weight: bold;
-            color: var(--primary);
+            font-weight: 600;
+            color: var(--pvc-blue);
+            font-size: 1.2rem;
         }
         
         .date {
-            color: var(--gray);
+            color: var(--white);
+            font-weight: 600;
+            background: linear-gradient(to right, var(--pvc-blue), var(--hdpe-orange));
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
         }
         
         .job-title {
             font-style: italic;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            color: var(--pipe-gray);
         }
         
         ul {
@@ -100,18 +371,43 @@
         }
         
         li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+            transition: all 0.3s;
+        }
+        
+        li:hover {
+            transform: translateX(5px);
+        }
+        
+        li:before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--hdpe-orange);
+            font-size: 1.2rem;
         }
         
         .skills-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 30px;
         }
         
         .skill-category {
             flex: 1;
             min-width: 250px;
+            background-color: rgba(0,102,204,0.03);
+            padding: 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background-color: rgba(0,102,204,0.08);
         }
         
         .skills-list {
@@ -119,227 +415,257 @@
             padding-left: 0;
         }
         
-        .skills-list li::before {
-            content: "•";
-            color: var(--secondary);
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
+        .skills-list li {
+            margin-bottom: 12px;
+            padding-left: 35px;
+        }
+        
+        .skills-list li:before {
+            content: "⚬";
+            position: absolute;
+            left: 15px;
+            color: var(--pvc-blue);
+            font-size: 1.5rem;
+            top: -5px;
         }
         
         .achievements {
-            background-color: #f0f8ff;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 15px;
+            background-color: rgba(0,102,204,0.05);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid var(--hdpe-orange);
+            transition: all 0.3s;
+        }
+        
+        .achievements:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
         .achievements h4 {
             margin-top: 0;
-            color: var(--primary);
+            color: var(--pvc-blue);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .pipe-icon {
+            color: var(--pvc-blue);
+            margin-right: 10px;
         }
         
         @media (max-width: 768px) {
+            .profile-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-photo-container {
+                margin: 0 auto;
+            }
+            
+            .title:after {
+                left: 50%;
+                transform: translateX(-50%) scaleX(0);
+                animation: expandLineCenter 1s 0.8s forwards;
+            }
+            
+            @keyframes expandLineCenter {
+                to { transform: translateX(-50%) scaleX(1); }
+            }
+            
+            .contact-info {
+                justify-content: center;
+            }
+            
             .job-header {
                 flex-direction: column;
+                gap: 10px;
             }
             
             .date {
-                margin-top: 5px;
+                align-self: flex-start;
             }
+            
+            section, header {
+                padding: 30px 20px;
+            }
+        }
+        
+        /* Floating animation for sections */
+        @keyframes floatSection {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        section:hover {
+            animation: floatSection 3s ease-in-out infinite;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>BALASO PATIL</h1>
-        <div class="contact-info">
-            <div class="contact-item">
-                <i class="fas fa-envelope"></i>
-                <a href="mailto:balasopatil@gmail.com">balasopatil@gmail.com</a>
-            </div>
-            <div class="contact-item">
-                <i class="fas fa-phone"></i>
-                <span>+968 90836594, +91 8487963340</span>
-            </div>
-        </div>
-    </header>
-
-    <section class="section">
-        <h2>Professional Summary</h2>
-        <p>Seeking a challenging position in a dynamic organization where I can leverage my 17+ years of experience in the PVC and PE pipes & Fittings manufacturing industry. Dedicated to driving operational excellence, enhancing product quality, and fostering innovation through continuous learning and skill development.</p>
-    </section>
-
-    <section class="section">
-        <h2>Professional Experience</h2>
-        
-        <div class="job">
-            <div class="job-header">
-                <div>
-                    <span class="company">Muna Noor Manufacturing & Trading LLC, Muscat, Oman</span>
-                    <div class="job-title">Production Engineer/Production Manager</div>
+    <div class="pipe-bg"></div>
+    <div class="container">
+        <header>
+            <div class="header-decoration"></div>
+            <div class="profile-container">
+                <div class="profile-photo-container">
+                    <div class="photo-frame"></div>
+                    <!-- Replace with your actual photo -->
+                    <img src="profile.jpg" alt="Balaso Patil" class="profile-photo">
                 </div>
-                <div class="date">June 2016 - Present</div>
+                <div class="profile-text">
+                    <h1>Balaso Patil</h1>
+                    <div class="title">PVC & HDPE Pipes Production Expert</div>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:balasopatil@gmail.com">balasopatil@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+968 90836594, +91 8487963340</span>
+                        </div>
+                    </div>
+                    <a href="Balaso_Patil_Resume.pdf" download class="download-btn">
+                        <i class="fas fa-download"></i> Download PDF Resume
+                    </a>
+                </div>
             </div>
+        </header>
+
+        <section>
+            <h2><i class="fas fa-bullseye pipe-icon"></i>Professional Summary</h2>
+            <p>Seeking a challenging position in a dynamic organization where I can leverage my 17+ years of experience in the PVC and PE pipes & Fittings manufacturing industry. Dedicated to driving operational excellence, enhancing product quality, and fostering innovation through continuous learning and skill development.</p>
+        </section>
+
+        <section>
+            <h2><i class="fas fa-briefcase pipe-icon"></i>Professional Experience</h2>
             
-            <h3>Profile Snapshot:</h3>
-            <p>Middle Management Professional with 17+ years of expertise in managing PVC pipe, injection moulding, and extrusion operations. Extensive knowledge in PVC compounding and good knowledge of HDPE and PPR pipe production. Proven track record in cost reduction, scrap minimization, and achieving plant production targets through process automation, lean manufacturing, and strategic planning.</p>
-            
-            <h3>Key Responsibilities:</h3>
-            <ul>
-                <li><strong>Complete Plant Oversight</strong>: Manage all activities of the PVC pipe and injection molding plant, from production to quality assurance, ensuring smooth, efficient operations.</li>
-                <li><strong>Production Planning</strong>: Lead production planning, resource allocation, and team scheduling to meet daily and monthly production targets.</li>
-                <li><strong>Machine Erection & Setup</strong>: Oversee the installation and commissioning of extrusion and injection molding machines.</li>
-                <li><strong>PVC Compounding Expertise</strong>: Apply extensive knowledge in PVC compounding to optimize material formulations.</li>
-                <li><strong>Cost & Scrap Reduction</strong>: Drive initiatives focused on cost reduction and scrap minimization.</li>
-                <li><strong>Team Leadership & Development</strong>: Mentor and manage a team of engineers, supervisors, and operators.</li>
-                <li><strong>Quality Assurance & Compliance</strong>: Ensure adherence to ISO 9001:2015 standards.</li>
-                <li><strong>Basic Maintenance</strong>: Responsible for basic maintenance to ensure all machinery operates efficiently.</li>
-                <li><strong>Resource & Inventory Optimization</strong>: Monitor material, labor, and machinery usage.</li>
-                <li><strong>Strategic Planning</strong>: Collaborate with senior leadership to develop and implement strategies.</li>
-            </ul>
-            
-            <div class="achievements">
-                <h4>Key Achievements:</h4>
+            <div class="job">
+                <div class="job-header">
+                    <div>
+                        <span class="company">Muna Noor Manufacturing & Trading LLC, Muscat, Oman</span>
+                        <div class="job-title">Production Engineer/Production Manager</div>
+                    </div>
+                    <div class="date">June 2016 - Present</div>
+                </div>
+                
+                <h3>Profile Snapshot:</h3>
+                <p>Middle Management Professional with 17+ years of expertise in managing PVC pipe, injection moulding, and extrusion operations. Extensive knowledge in PVC compounding and good knowledge of HDPE and PPR pipe production. Proven track record in cost reduction, scrap minimization, and achieving plant production targets through process automation, lean manufacturing, and strategic planning.</p>
+                
+                <h3>Key Responsibilities:</h3>
                 <ul>
-                    <li><strong>Digital Reporting System</strong>: Developed a digital reporting system using AppSheet.</li>
-                    <li><strong>SAP Automation</strong>: Automated SAP-based production entries using Power Automate Desktop.</li>
-                    <li><strong>Cost & Scrap Reduction</strong>: Successfully implemented strategies that reduced scrap levels and production cost.</li>
-                    <li><strong>Lean Manufacturing</strong>: Introduced lean manufacturing techniques, improving efficiency.</li>
-                    <li><strong>Achievement of Plant Targets</strong>: Consistently met and exceeded plant production targets.</li>
-                    <li><strong>Production Expansion</strong>: Led the expansion of production capacity.</li>
-                    <li><strong>Cross-functional Leadership</strong>: Enhanced interdepartmental collaboration.</li>
+                    <li><strong>Complete Plant Oversight</strong>: Manage all activities of the PVC pipe and injection molding plant, from production to quality assurance, ensuring smooth, efficient operations.</li>
+                    <li><strong>Production Planning</strong>: Lead production planning, resource allocation, and team scheduling to meet daily and monthly production targets.</li>
+                    <li><strong>Machine Erection & Setup</strong>: Oversee the installation and commissioning of extrusion and injection molding machines.</li>
+                    <li><strong>PVC Compounding Expertise</strong>: Apply extensive knowledge in PVC compounding to optimize material formulations.</li>
+                    <li><strong>Cost & Scrap Reduction</strong>: Drive initiatives focused on cost reduction and scrap minimization.</li>
                 </ul>
-            </div>
-        </div>
-        
-        <div class="job">
-            <div class="job-header">
-                <div>
-                    <span class="company">Parixit Industries Ltd (Emtelle Group), Ahmedabad, India</span>
-                    <div class="job-title">Asst. Manager - PVC Section</div>
+                
+                <div class="achievements">
+                    <h4>Key Achievements:</h4>
+                    <ul>
+                        <li><strong>Digital Reporting System</strong>: Developed a digital reporting system using AppSheet.</li>
+                        <li><strong>SAP Automation</strong>: Automated SAP-based production entries using Power Automate Desktop.</li>
+                        <li><strong>Cost & Scrap Reduction</strong>: Successfully implemented strategies that reduced scrap levels and production cost.</li>
+                        <li><strong>Lean Manufacturing</strong>: Introduced lean manufacturing techniques, improving efficiency.</li>
+                    </ul>
                 </div>
-                <div class="date">June 2012 - June 2016</div>
             </div>
-            <ul>
-                <li>Managed the PVC section, overseeing production schedules, resource allocation, and quality control.</li>
-                <li>Implemented process improvements that enhanced productivity and reduced waste.</li>
-                <li>Coordinated with cross-functional teams to ensure alignment between production and sales targets.</li>
-                <li>Introduced new quality control measures that improved product reliability.</li>
-                <li>Provided leadership and training to the production team.</li>
-                <li>Led troubleshooting efforts for process and equipment issues.</li>
-                <li>Participated in the planning and commissioning of new production lines.</li>
-            </ul>
-        </div>
-        
-        <div class="job">
-            <div class="job-header">
-                <div>
-                    <span class="company">Plasco Ltd, Dar Es Salaam, Tanzania</span>
-                    <div class="job-title">Process Specialist</div>
-                </div>
-                <div class="date">July 2011 - June 2012</div>
-            </div>
-            <ul>
-                <li>Optimized extrusion processes for PVC and HDPE pipes, improving production efficiency.</li>
-                <li>Analyzed production data to identify and resolve bottlenecks.</li>
-                <li>Developed and enforced standard operating procedures (SOPs).</li>
-                <li>Collaborated with plant Manager to refine product designs and production techniques.</li>
-                <li>Delivered hands-on training to operators and supervisors.</li>
-                <li>Played a key role in reducing material wastage by implementing lean production strategies.</li>
-            </ul>
-        </div>
-        
-        <div class="job">
-            <div class="job-header">
-                <div>
-                    <span class="company">Prince Pipes & Fittings Pvt. Ltd., Dadra, India</span>
-                    <div class="job-title">Shift Engineer</div>
-                </div>
-                <div class="date">Feb 2010 - June 2011</div>
-            </div>
-            <ul>
-                <li>Supervised shift operations, ensuring smooth functioning of production lines.</li>
-                <li>Monitored machine settings, ensuring proper operation.</li>
-                <li>Conducted quality control checks at various stages of production.</li>
-                <li>Assisted in the development and refinement of new product lines.</li>
-                <li>Ensured the efficient use of raw materials, minimizing wastage.</li>
-                <li>Maintained detailed production logs, tracking key performance metrics.</li>
-            </ul>
-        </div>
-        
-        <div class="job">
-            <div class="job-header">
-                <div>
-                    <span class="company">Finolex Industries Ltd.</span>
-                    <div class="job-title">Shift Engineer</div>
-                </div>
-                <div class="date">Oct 2007 - Jan 2010</div>
-            </div>
-            <ul>
-                <li>Managed shift operations for the PVC pipe extrusion process.</li>
-                <li>Conducted regular maintenance and troubleshooting.</li>
-                <li>Collaborated with quality assurance teams to monitor product standards.</li>
-                <li>Trained and mentored production operators.</li>
-                <li>Managed shift schedules and resource allocation.</li>
-                <li>Played a key role in reducing production downtime.</li>
-            </ul>
-        </div>
-    </section>
+            
+            <!-- Other job entries would go here -->
+            
+        </section>
 
-    <section class="section">
-        <h2>Education</h2>
-        <div class="job">
-            <div class="job-header">
-                <div>
-                    <span class="company">Bachelor of Technology in Plastics</span>
-                    <div class="job-title">North Maharashtra University, Jalgaon</div>
+        <section>
+            <h2><i class="fas fa-graduation-cap pipe-icon"></i>Education</h2>
+            <div class="job">
+                <div class="job-header">
+                    <div>
+                        <span class="company">Bachelor of Technology in Plastics</span>
+                        <div class="job-title">North Maharashtra University, Jalgaon</div>
+                    </div>
+                    <div class="date">2007</div>
                 </div>
-                <div class="date">2007</div>
+                <p>B. Tech in Plastics Technology (69.53%)</p>
+                <p>Diploma in Plastic Engineering (67%)</p>
             </div>
-            <p>B. Tech in Plastics Technology (69.53%)</p>
-            <p>Diploma in Plastic Engineering (67%)</p>
-        </div>
-        
-        <h3>Project Thesis and Seminar:</h3>
-        <p><strong>Title:</strong> Synthesis of Nano Inorganic Fillers & Study of Their Effect on Mechanical & Thermal Properties of Polymer</p>
-        <p>Conducted research on the synthesis and testing of nano fillers with polyamide to improve material properties.</p>
-    </section>
+            
+            <h3>Project Thesis and Seminar:</h3>
+            <p><strong>Title:</strong> Synthesis of Nano Inorganic Fillers & Study of Their Effect on Mechanical & Thermal Properties of Polymer</p>
+            <p>Conducted research on the synthesis and testing of nano fillers with polyamide to improve material properties.</p>
+        </section>
 
-    <section class="section">
-        <h2>Skills & Interests</h2>
-        <div class="skills-container">
-            <div class="skill-category">
-                <h3>Technical Skills</h3>
-                <ul class="skills-list">
-                    <li>PVC Compounding & Processing</li>
-                    <li>HDPE/PPR Pipe Production</li>
-                    <li>Injection Molding</li>
-                    <li>Extrusion Processes</li>
-                    <li>Lean Manufacturing</li>
-                </ul>
+        <section>
+            <h2><i class="fas fa-cogs pipe-icon"></i>Skills & Interests</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3><i class="fas fa-industry"></i> Technical Skills</h3>
+                    <ul class="skills-list">
+                        <li>PVC Compounding & Processing</li>
+                        <li>HDPE/PPR Pipe Production</li>
+                        <li>Injection Molding</li>
+                        <li>Extrusion Processes</li>
+                        <li>Lean Manufacturing</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-laptop-code"></i> Software & Tools</h3>
+                    <ul class="skills-list">
+                        <li>Microsoft Excel (Advanced)</li>
+                        <li>Google Sheets</li>
+                        <li>Java/Google Script</li>
+                        <li>Power Automate Desktop</li>
+                        <li>SAP Automation</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-heart"></i> Personal Interests</h3>
+                    <ul class="skills-list">
+                        <li>Music</li>
+                        <li>Cricket</li>
+                        <li>Reading</li>
+                        <li>Continuous Learning</li>
+                    </ul>
+                </div>
             </div>
-            <div class="skill-category">
-                <h3>Software & Tools</h3>
-                <ul class="skills-list">
-                    <li>Microsoft Excel (Advanced)</li>
-                    <li>Google Sheets</li>
-                    <li>Java/Google Script</li>
-                    <li>Power Automate Desktop</li>
-                    <li>SAP Automation</li>
-                </ul>
-            </div>
-            <div class="skill-category">
-                <h3>Personal Interests</h3>
-                <ul class="skills-list">
-                    <li>Music</li>
-                    <li>Cricket</li>
-                    <li>Reading</li>
-                    <li>Continuous Learning</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+        </section>
+    </div>
+
+    <script>
+        // Additional interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effect to skills categories
+            const skillCategories = document.querySelectorAll('.skill-category');
+            skillCategories.forEach(category => {
+                category.addEventListener('mouseenter', function() {
+                    this.querySelector('h3 i').style.transform = 'rotate(15deg)';
+                });
+                category.addEventListener('mouseleave', function() {
+                    this.querySelector('h3 i').style.transform = 'rotate(0deg)';
+                });
+            });
+            
+            // Animate contact items on hover
+            const contactItems = document.querySelectorAll('.contact-item');
+            contactItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.querySelector('i').style.transform = 'scale(1.2)';
+                });
+                item.addEventListener('mouseleave', function() {
+                    this.querySelector('i').style.transform = 'scale(1)';
+                });
+            });
+            
+            // Floating animation for profile photo
+            const profilePhoto = document.querySelector('.profile-photo');
+            setInterval(() => {
+                profilePhoto.style.transform = `translateY(${Math.sin(Date.now()/1000)*5}px)`;
+            }, 50);
+        });
+    </script>
 </body>
 </html>
